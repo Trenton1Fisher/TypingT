@@ -4,14 +4,31 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { CgMenuGridO, CgClose } from 'react-icons/cg'
-import { navLinks } from '@/constants'
+import { navLinks, authLinks } from '@/constants'
 import Route from '../ui/route'
+import { signOut, type User } from 'firebase/auth'
+import { auth } from '@/config/firebase'
+import React from 'react'
 
-export default function MobileMenu() {
+type MobileMenuProps = {
+  user: User | null
+}
+
+export default function MobileMenu(props: MobileMenuProps) {
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
 
   function mobileMenuHandler() {
     setOpenMobileMenu(!openMobileMenu)
+  }
+
+  function handleSignOut() {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch(error => {
+        // An error happened.
+      })
   }
 
   return (
@@ -49,18 +66,46 @@ export default function MobileMenu() {
                 </h1>
               </Link>
             </div>
-            {navLinks.map((link, index) => {
-              return (
-                <Route
-                  route={link.route}
-                  label={link.label}
-                  imagePath={link.imagePath}
-                  alt={link.alt}
-                  setOpenMobileMenu={setOpenMobileMenu}
-                  key={index}
-                />
-              )
-            })}
+            {props.user
+              ? authLinks.map((link, index) => (
+                  <React.Fragment key={index}>
+                    <Route
+                      route={link.route}
+                      label={
+                        index === 1 ? `${props!.user!.displayName}` : link.label
+                      }
+                      imagePath={link.imagePath}
+                      alt={link.alt}
+                      setOpenMobileMenu={setOpenMobileMenu}
+                    />
+                    {index === authLinks.length - 1 && (
+                      <div
+                        className="cursor-pointer flex"
+                        onClick={handleSignOut}
+                      >
+                        <Image
+                          src={'/logout.png'}
+                          height={25}
+                          width={25}
+                          alt="Logout"
+                        />
+                        <h3 className="font-semibold text-white ml-3">
+                          Logout
+                        </h3>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))
+              : navLinks.map((link, index) => (
+                  <Route
+                    route={link.route}
+                    label={link.label}
+                    imagePath={link.imagePath}
+                    alt={link.alt}
+                    setOpenMobileMenu={setOpenMobileMenu}
+                    key={index}
+                  />
+                ))}
           </div>
         </div>
       ) : null}
