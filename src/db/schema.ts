@@ -1,14 +1,14 @@
 import { sql } from 'drizzle-orm'
 import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core'
 
-const Leaderboard = sqliteTable('leaderboard', {
+export const Leaderboard = sqliteTable('leaderboard', {
   id: integer('id').notNull().primaryKey(),
   username: text('username').notNull(),
   wpm: integer('wpm').notNull(),
   date: text('date').default(sql`CURRENT_DATE`),
 })
 
-const User = sqliteTable('user', {
+export const User = sqliteTable('user', {
   userId: text('uid').notNull().primaryKey(),
   testsStarted: integer('tests_started'),
   testsCompleted: integer('tests_completed'),

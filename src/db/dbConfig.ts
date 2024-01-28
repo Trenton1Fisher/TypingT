@@ -2,8 +2,9 @@ import { drizzle } from 'drizzle-orm/libsql'
 import { createClient } from '@libsql/client'
 
 const client = createClient({
-  url: process.env.DATABASE_URL as string,
-  authToken: process.env.DATABASE_AUTH_TOKEN,
+  url: 'libsql://typing-t-trenton1fisher.turso.io',
+  authToken:
+    'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOiIyMDI0LTAxLTI3VDA5OjM4OjA2LjgxODkwNTEzNVoiLCJpZCI6IjJkNzYxNTVhLWJjOWItMTFlZS04MDExLWE2N2RmZTcyZDc0ZCJ9.Oy85l9lrKj6JNBpWXBPaM2IwnmltyLGsazCAgnf8MFjMIO42WCsUEzLoaMCQKQvWNwXPZRnEqjuBXajSflz9DA',
 })
 
 export const db = drizzle(client)

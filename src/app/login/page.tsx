@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { formValidation } from '@/utils/formValidations'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -36,13 +36,15 @@ export default function Home() {
     signInWithEmailAndPassword(auth, formInfo.email, formInfo.password)
       .then(userCredential => {
         const user = userCredential.user
-        router.push('/')
+        if (user) {
+          router.push('/')
+        }
       })
       .catch(error => {
-        const errorCode = error.code
-        const errorMessage = error.message
+        setAuthErrorMessage(error.message)
       })
   }
+
   return (
     <div className="flex  items-center justify-center mt-32">
       <div className="w-full max-w-[400px] p-8 bg-[#4F4F4F] rounded-lg shadow-md">
