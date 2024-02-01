@@ -11,13 +11,16 @@
   },
   "dependencies": {
     "@libsql/client": "^0.4.0",
+    "@nextui-org/react": "^2.2.9",
     "drizzle-orm": "^0.29.3",
     "firebase": "^10.7.2",
+    "framer-motion": "^11.0.3",
     "next": "14.1.0",
     "nextjs-toploader": "^1.6.4",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-loading-skeleton": "^3.4.0",
     "react-spinners": "^0.13.8"
   },
   "devDependencies": {
