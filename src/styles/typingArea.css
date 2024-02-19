@@ -1,0 +1,27 @@
+.cursor-blink {
+  display: inline-block;
+  width: 0.08em;
+  height: 1.2em;
+  background-color: black;
+  animation: blink 0.8s infinite alternate;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.08em;
+  height: 1.2em;
+  background-color: black;
+}
+
+.error {
+  background-color: red;
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

@@ -2,19 +2,21 @@
 
 import MobileSettings from '../ui/mobileSettings'
 import Option from '../ui/option'
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import type { TestSettings } from '@/types/settingsTypes'
 import { handleNumericSetting } from '@/utils/toggleSettings'
 
-export default function TypingSetting() {
-  const [options, setOptions] = useState<TestSettings>({
-    punctuation: false,
-    numbers: false,
-    time: true,
-    words: false,
-    count: 60,
-  })
+interface SettingProps {
+  options: TestSettings
+  setOptions: Dispatch<SetStateAction<TestSettings>>
+  gameActive: boolean
+}
 
+export default function TypingSetting({
+  options,
+  setOptions,
+  gameActive,
+}: SettingProps) {
   return (
     <section className="mx-auto w-[150px] md:w-[600px] lg:w-[600px] mt-12">
       <div className="flex bg-[#4F4F4F] p-2 rounded-lg text-white justify-between">
@@ -26,6 +28,7 @@ export default function TypingSetting() {
               icon="at"
               options={options}
               setOptions={setOptions}
+              gameActive={gameActive}
             />
             <Option
               label="Numbers"
@@ -33,6 +36,7 @@ export default function TypingSetting() {
               icon="hashtag"
               options={options}
               setOptions={setOptions}
+              gameActive={gameActive}
             />
           </div>
           <div className="h-[30px] w-[5px] rounded-xl bg-white mx-5"></div>
@@ -43,6 +47,7 @@ export default function TypingSetting() {
               icon="time"
               options={options}
               setOptions={setOptions}
+              gameActive={gameActive}
             />
             <Option
               label="Words"
@@ -50,6 +55,7 @@ export default function TypingSetting() {
               icon="aa"
               options={options}
               setOptions={setOptions}
+              gameActive={gameActive}
             />
           </div>
           <div className="h-[30px] w-[5px] rounded-xl bg-white mx-5"></div>
@@ -60,11 +66,14 @@ export default function TypingSetting() {
                 className={`text-sm cursor-pointer ml-2 rounded-md p-1 ${
                   options['count'] === parseInt(duration) ? 'bg-[#3c3c3c]' : ''
                 }`}
-                onClick={() =>
-                  handleNumericSetting({
-                    value: parseInt(duration),
-                    setOptions,
-                  })
+                onClick={
+                  gameActive
+                    ? undefined
+                    : () =>
+                        handleNumericSetting({
+                          value: parseInt(duration),
+                          setOptions,
+                        })
                 }
               >
                 {duration}
