@@ -82,7 +82,11 @@ export default function TypingSetting({
           </ul>
         </div>
         <div className="md:hidden flex justify-center items-center mx-auto text-center">
-          <MobileSettings options={options} setOptions={setOptions} />
+          <MobileSettings
+            options={options}
+            setOptions={setOptions}
+            gameActive={gameActive}
+          />
         </div>
       </div>
     </section>

@@ -8,12 +8,13 @@ export type OptionProps = {
   icon: string
   options: TestSettings
   setOptions: React.Dispatch<React.SetStateAction<TestSettings>>
-  gameActive: boolean
+  gameActive?: boolean
 }
 
 export type MobileSettingsProps = {
   options: TestSettings
   setOptions: React.Dispatch<React.SetStateAction<TestSettings>>
+  gameActive: boolean
 }
 
 export type handleNumericSettingsProps = {

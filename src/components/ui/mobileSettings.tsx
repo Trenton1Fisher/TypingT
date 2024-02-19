@@ -9,13 +9,14 @@ import type { MobileSettingsProps } from '@/types/settingsTypes'
 export default function MobileSettings({
   options,
   setOptions,
+  gameActive,
 }: MobileSettingsProps) {
   const [openSetting, setOpenSettings] = useState(false)
   return (
     <>
       <div
         className="flex justify-center items-center"
-        onClick={() => setOpenSettings(true)}
+        onClick={gameActive ? undefined : () => setOpenSettings(true)}
       >
         <Image
           src={'/settings.png'}
